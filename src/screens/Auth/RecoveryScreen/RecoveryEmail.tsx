@@ -6,6 +6,7 @@ import {useNavigation} from '@react-navigation/native';
 import {ROUTES} from '../../../constants/routes';
 import useRootStore from '../../../hooks/useRootStore';
 import axios from 'axios';
+import {API_URL} from '../../../api/api.constants';
 
 const RecoveryEmail = () => {
   const navigation = useNavigation();
@@ -18,7 +19,7 @@ const RecoveryEmail = () => {
     } else {
       try {
         const res = await axios({
-          url: 'http://tutor.shini.uz/api/user/recover-password',
+          url: `${API_URL}/user/recover-password`,
           method: 'POST',
           data: {
             phone: state.phone,

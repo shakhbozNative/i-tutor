@@ -7,6 +7,7 @@ import useRootStore from '../../../hooks/useRootStore';
 import axios from 'axios';
 import {ROUTES} from '../../../constants/routes';
 import {Alert} from 'react-native';
+import {API_URL} from '../../../api/api.constants';
 
 const RecoveryCode = () => {
   const navigation = useNavigation();
@@ -19,7 +20,7 @@ const RecoveryCode = () => {
     } else {
       try {
         const res = await axios({
-          url: 'http://tutor.shini.uz/api/user/accept-recover-code',
+          url: `${API_URL}/user/accept-recover-code`,
           method: 'POST',
           data: state,
         });

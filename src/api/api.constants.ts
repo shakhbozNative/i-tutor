@@ -1,4 +1,4 @@
-export const API_URL = 'https://tutor.shini.uz/admin/api';
+export const API_URL = 'http://tutor.shini.uz/api';
 
 export const API_REQUESTS_TIME = 3000;
 

@@ -20,34 +20,10 @@ import useRootStore from '../../../hooks/useRootStore';
 import {API_URL} from '../../../api/api.constants';
 import {observer} from 'mobx-react';
 import axios from 'axios';
-import tokens from '../../../api/tokens/tokens';
 
 const Login = () => {
   const navigaton: any = useNavigation();
-  const {setState, state} = useRootStore().loginStore;
-  const [a, b] = useState<[null, null]>();
-
-  const handleLogin = async () => {
-    try {
-      const res = await axios({
-        url: 'http://tutor.shini.uz/api/user/sign-in',
-        method: 'POST',
-        data: state,
-      });
-
-      console.log('res', JSON.stringify(res.data));
-      let {token} = await res.data.data;
-      await tokens.saveToken(token);
-
-      setTimeout(() => {
-        if (res.data) {
-          navigaton.navigate(ROUTES.STUDENTNAVIGATION as never);
-        }
-      }, 200);
-    } catch (error) {
-      Alert.alert('Ogohlantirish', 'Login yoki parol xato!');
-    }
-  };
+  const {setState, state, onLogin} = useRootStore().loginStore;
 
   return (
     <WelcomeScreen
@@ -83,7 +59,7 @@ const Login = () => {
               marginTop: 30,
             }}
             TextStyle={{color: COLORS.white}}
-            onPress={handleLogin}
+            onPress={onLogin}
           />
           <TouchableOpacity
             onPress={() => navigaton.navigate(ROUTES.SELECTTYPE)}>

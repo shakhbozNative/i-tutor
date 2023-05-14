@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {View} from 'react-native';
 
 import {NavigationContainer} from '@react-navigation/native';
@@ -28,12 +28,12 @@ import EducationNavigation from '../screens/TabNavigations/EducationNavigation';
 import StudentNavigation from '../screens/TabNavigations/StudentNavigation';
 import TeacherNavigation from '../screens/TabNavigations/TeacherNavigation';
 import useRootStore from '../hooks/useRootStore';
-import tokens from '../api/tokens/tokens';
 
 let Stack = createNativeStackNavigator();
 
 const AppRouter = () => {
   const insets = useSafeAreaInsets();
+  const {tokenStore} = useRootStore();
 
   return (
     <View
@@ -47,7 +47,7 @@ const AppRouter = () => {
           screenOptions={{
             headerShown: false,
           }}>
-          {!tokens.getAccessToken() && (
+          {!tokenStore.accessToken && (
             <Stack.Screen name={ROUTES.AUTH} component={AuthStack} />
           )}
           <Stack.Screen

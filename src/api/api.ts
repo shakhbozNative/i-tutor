@@ -1,112 +1,51 @@
-import axios, {AxiosInstance, AxiosResponse} from 'axios';
-import {API_REQUESTS_TIME, API_URL} from './api.constants';
-import {
-  LoginPayload,
-  SiginUpPayloadStudent,
-  SiginUpResponse,
-  signUpTeacher,
-} from './requests/api.acount.tayps';
+import axios, {AxiosInstance} from 'axios';
+import {makeAutoObservable} from 'mobx';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {API_URL} from './api.constants';
+import {IToken} from '../store/tokenStore/TokenStore';
+export const TIME_OUT = 30000;
 
-import tokens from './tokens/tokens';
-import {accessStudentStore} from '../store/auth/Access_Student/Access_Student';
 class Api {
-  private axiosClient: AxiosInstance;
+  readonly api: AxiosInstance;
+
   constructor() {
-    this.axiosClient = axios.create({
+    makeAutoObservable(this);
+    this.api = axios.create({
       baseURL: API_URL,
-      timeout: API_REQUESTS_TIME,
+      timeout: TIME_OUT,
     });
-    this.axiosClient.interceptors.response.use(
-      (response: AxiosResponse) => {
-        return response.data;
-      },
-      error => {
-        if (error) {
-          console.log('Erorr:', error?.response.data);
-          if (error?.response?.status === 401) {
-            tokens.clear();
-            // window.location.href = '/';
-          }
-        }
-        return Promise.reject(error);
-      },
-    );
-    this.axiosClient.interceptors.request.use(
-      (config: any) => {
-        const token = tokens.getAccessToken();
-        if (token) {
-          config.headers = {
-            ...config.headers,
-            Authorization: `Bearer ${token}`,
-          };
-        }
+
+    this.api.interceptors.request.use(
+      async (config: any) => {
+        const tokenFromAsyncStore =
+          (await AsyncStorage.getItem(IToken.accessToken)) || '';
+
+        this.setAccessToken(tokenFromAsyncStore);
         return config;
       },
-      error => {
-        return Promise.reject(error);
-      },
+      error => Promise.reject(error),
     );
   }
-  public SetAccessToken = (accessToken: string) => {
-    console.log('token ', accessToken);
 
-    this.axiosClient.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
-  };
-  public ClearAccessToke = () => {
-    delete this.axiosClient.defaults.headers.common.Authorization;
-  };
-  public hasAuthorizationHeader = () => {
-    !!this.axiosClient.defaults.headers.common.Authorization;
+  private setAccessToken = (accessToken: string) => {
+    this.api.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
   };
 
-  public signUp = (payload: SiginUpPayloadStudent) => {
-    console.log(payload);
-    return this.axiosClient.post<any, SiginUpResponse>(
-      '/user/sign-up-student',
-      {
-        payload,
-      },
-    );
-  };
-
-  public accessStudentStore = (payload: any) => {
-    console.log(payload);
-    return this.axiosClient.post<any, accessStudentStore>('/user/update', {
-      payload,
-    });
-  };
-
-  public login = (payload: LoginPayload) =>
-    this.axiosClient.post('/user/sign-in', payload);
-  //m
-  public signUpTeacher = (payload: signUpTeacher) => {
-    console.log(payload);
-    return this.axiosClient.post<any, SiginUpResponse>('/user/sign-up-tutor', {
-      payload,
-    });
-  };
-
-  public signUpEducation = (payload: any) => {
-    console.log(payload);
-    return this.axiosClient.post<any, SiginUpResponse>(
-      'user/sign-up-institution',
-      {
-        payload,
-      },
-    );
-  };
-
-  public accessStudent = (payload: any) => {
-    console.log(payload);
-    return this.axiosClient.post<any, SiginUpResponse>(
-      'user/sign-up-institution',
-      {
-        payload,
-      },
-    );
-  };
+  // public postApiVActivityTaskAttachment = (
+  //   id: string,
+  //   data: FormData,
+  //   token: string,
+  // ) =>
+  //   this.api.post(
+  //     `http://localhost:8000/api/v1/Activity/Task/${id}/Attachment`,
+  //     data,
+  //     {
+  //       headers: {
+  //         Authorization: `Bearer ${token}`,
+  //       },
+  //     },
+  //   );
 }
 
-const api = new Api();
-
-export default api;
+const $api = new Api().api;
+export default $api;
