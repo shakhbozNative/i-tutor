@@ -1,13 +1,14 @@
 import React from 'react';
-import { View } from 'react-native';
+import {View} from 'react-native';
 
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import NavigationService from '../NavigationService';
-import { COLORS } from '../constants/colors';
-import { ROUTES } from '../constants/routes';
+import {COLORS} from '../constants/colors';
+import {ROUTES} from '../constants/routes';
 import AuthStack from '../screens/Auth/AuthStack';
+import {observer} from 'mobx-react';
 
 import Notification from '../components/uiket/notification/Notification';
 import PaidService from '../components/uiket/paidService/PaidService';
@@ -26,11 +27,14 @@ import OurExpertAll from '../screens/StudentHome/home/ourExperts/OurExpertAll/Ou
 import EducationNavigation from '../screens/TabNavigations/EducationNavigation';
 import StudentNavigation from '../screens/TabNavigations/StudentNavigation';
 import TeacherNavigation from '../screens/TabNavigations/TeacherNavigation';
+import useRootStore from '../hooks/useRootStore';
+import tokens from '../api/tokens/tokens';
 
 let Stack = createNativeStackNavigator();
 
-export default function AppRouter() {
+const AppRouter = () => {
   const insets = useSafeAreaInsets();
+
   return (
     <View
       style={{
@@ -43,7 +47,9 @@ export default function AppRouter() {
           screenOptions={{
             headerShown: false,
           }}>
-          <Stack.Screen name={ROUTES.AUTH} component={AuthStack} />
+          {!tokens.getAccessToken() && (
+            <Stack.Screen name={ROUTES.AUTH} component={AuthStack} />
+          )}
           <Stack.Screen
             name={ROUTES.STUDENTNAVIGATION}
             component={StudentNavigation}
@@ -103,4 +109,6 @@ export default function AppRouter() {
       </NavigationContainer>
     </View>
   );
-}
+};
+
+export default observer(AppRouter);

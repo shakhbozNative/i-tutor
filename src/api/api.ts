@@ -8,6 +8,7 @@ import {
 } from './requests/api.acount.tayps';
 
 import tokens from './tokens/tokens';
+import {accessStudentStore} from '../store/auth/Access_Student/Access_Student';
 class Api {
   private axiosClient: AxiosInstance;
   constructor() {
@@ -47,6 +48,8 @@ class Api {
     );
   }
   public SetAccessToken = (accessToken: string) => {
+    console.log('token ', accessToken);
+
     this.axiosClient.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
   };
   public ClearAccessToke = () => {
@@ -66,6 +69,13 @@ class Api {
     );
   };
 
+  public accessStudentStore = (payload: any) => {
+    console.log(payload);
+    return this.axiosClient.post<any, accessStudentStore>('/user/update', {
+      payload,
+    });
+  };
+
   public login = (payload: LoginPayload) =>
     this.axiosClient.post('/user/sign-in', payload);
   //m
@@ -76,7 +86,17 @@ class Api {
     });
   };
 
-  public signUpEducation = (payload: signUpEducation) => {
+  public signUpEducation = (payload: any) => {
+    console.log(payload);
+    return this.axiosClient.post<any, SiginUpResponse>(
+      'user/sign-up-institution',
+      {
+        payload,
+      },
+    );
+  };
+
+  public accessStudent = (payload: any) => {
     console.log(payload);
     return this.axiosClient.post<any, SiginUpResponse>(
       'user/sign-up-institution',

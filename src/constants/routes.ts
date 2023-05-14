@@ -17,6 +17,7 @@ export const ROUTES = {
   STUDENT: 'Student',
   TEACHER: 'Teacher',
   RECOVERYCODE: 'RecoveryCode',
+  RECOVERY_EMAIL: 'RecoveryEmail',
   FAVORITES: 'FavoritesScreen',
   PROFILE: 'Личные данные',
   CATALOG: 'CatalogScreen',

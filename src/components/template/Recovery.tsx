@@ -7,17 +7,17 @@ import DefaulTitle from '../uiket/DefaultTitle';
 import GoBackHeader from '../uiket/GoBackHeader';
 import DefaultInput from '../uiket/TextInput';
 import axios from 'axios';
-import useRootState from '../../hooks/useRootState';
-import { observer } from 'mobx-react';
+import {observer} from 'mobx-react';
 
-
- 
 type PropsType = {
-  title?: String ;
-  label?: String;
+  title: string;
+  label: string;
+  onPress?: () => void;
+  onChangeText: (e: string) => void;
+  inputValue?: string;
 };
 const RecoveryComponent = (props: PropsType) => {
- const recoveryStore = useRootState().recoveryAuth;
+  console.log(props.title);
 
   return (
     <View
@@ -27,16 +27,12 @@ const RecoveryComponent = (props: PropsType) => {
         position: 'relative',
       }}>
       <GoBackHeader />
-      <DefaulTitle title={STRINGS.ru.recovery}  />
+      <DefaulTitle title={props.title} />
       <View style={styles.input_box}>
-        <DefaultInput label={STRINGS.ru.number} 
-        value={recoveryStore.phone}
-        onChangeText={(text)=> {
-          recoveryStore._change(text)
-        }}/>
+        <DefaultInput label={props.label} onChangeText={props.onChangeText} />
       </View>
       <View style={styles.btn_box}>
-        <DefaultButton title="Запросить код" onPress={recoveryStore._submit}/>
+        <DefaultButton title="Запросить код" onPress={props.onPress} />
       </View>
     </View>
   );

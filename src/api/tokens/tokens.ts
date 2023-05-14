@@ -6,7 +6,12 @@ const Values = {
 
 const tokens = {
   saveToken: async (accessToken: string) => {
-    await AsyncStorage.setItem(Values.ACCESS_TOKEN, accessToken);
+    console.log('token ', accessToken);
+
+    await AsyncStorage.setItem(
+      Values.ACCESS_TOKEN,
+      JSON.stringify(accessToken),
+    );
   },
   getAccessToken: async () => {
     return await AsyncStorage.getItem(Values.ACCESS_TOKEN);

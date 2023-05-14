@@ -1,17 +1,17 @@
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
 import { observer } from 'mobx-react';
-import React from 'react';
-import { Alert, ScrollView, StyleSheet, View } from 'react-native';
+import React, { Component } from 'react';
+import { Alert, FlatList, Keyboard, KeyboardAvoidingView, ScrollView, StyleSheet, View } from 'react-native';
 import GapHeight from '../../constants/GapHeight';
 import { COLORS } from '../../constants/colors';
 import { ROUTES } from '../../constants/routes';
-import useRootState from '../../hooks/useRootState';
 import { STRINGS } from '../../locales/strings';
 import DefaultButton from '../uiket/DefaultButton';
 import DefaulTitle from '../uiket/DefaultTitle';
 import GoBackHeader from '../uiket/GoBackHeader';
 import DefaultInput from '../uiket/TextInput';
+import useRootStore from '../../hooks/useRootStore';
 type PropsType = {
   title?: string;
   text?: string;
@@ -25,11 +25,9 @@ type PropsType = {
 };
 
 const AuthContainer = (props: PropsType) => {
-  const state = useRootState();
-  console.log(state.auth.setSignUpTeacher);
+
   const navigation:any = useNavigation()
-  
-const states = useRootState();
+  const {setStateEdu,setStateStudent,setStateTeacher,state} = useRootStore().signUpEduStore
 
 
   const handleLogin = async () => {
@@ -39,10 +37,10 @@ const states = useRootState();
 
         url:"http://tutor.shini.uz/api/user/sign-up-student",
         method:"POST",
-        data:states.auth.siginUpStudent
+        data:state.student
       })
 
-     Alert.alert("Tabriklayman!",`${states.auth.siginUpStudent.name} siz muvaffaqqiyatli ro'yxatdan o'tdinggiz`, [
+     Alert.alert("Tabriklayman!",`${state.student.name} siz muvaffaqqiyatli ro'yxatdan o'tdinggiz`, [
       {
         text:"Davom etish",
         onPress:() => {
@@ -64,10 +62,10 @@ const states = useRootState();
 
       url:"http://tutor.shini.uz/api/user/sign-up-tutor",
       method:"POST",
-      data:states.auth.siginUpTeacher
+      data:state.teacher
       })
 
-     Alert.alert("Tabriklayman!",`${states.auth.siginUpTeacher.name} siz mufaqiyatli ro'yxatdan o'tdinggiz`, [
+     Alert.alert("Tabriklayman!",`${state.teacher.name} siz mufaqiyatli ro'yxatdan o'tdinggiz`, [
       {
         text:"Davom etish",
         onPress:() => {
@@ -88,10 +86,10 @@ const states = useRootState();
 
       url:"http://tutor.shini.uz/api/user/sign-up-institution",
       method:"POST",
-      data:states.auth.siginUpEducation
+      data:state.education
       })
 
-     Alert.alert("Tabriklayman!", ` siz mufaqiyatli ro'yxatdan o'tdinggiz`, [
+     Alert.alert("Tabriklayman!", `${state.education.educational_name} siz mufaqiyatli ro'yxatdan o'tdinggiz`, [
       {
         text:"Davom etish",
         onPress:() => {
@@ -106,24 +104,24 @@ const states = useRootState();
   };
 
 
-  
-
-
-
-
   return (
+<KeyboardAvoidingView style={{flex: 1}}>
+  <ScrollView 
+    contentContainerStyle={{flex: 1}} bounces={false} >
     <View style={{backgroundColor: COLORS.tabBgColor, flex: 1}}>
       <GoBackHeader />
       <DefaulTitle title={STRINGS.ru.registration} />
       {props?.education ? (
         <ScrollView style={styles.input_box}>
-          <DefaultInput label={STRINGS.ru.NameOftheTrainingCenter } onChangeText={(text0)=>state.auth.setSignUpEducation(text0,'educational_name')} />
-          <DefaultInput label={STRINGS.ru.lawAddres} onChangeText={(text0)=>state.auth.setSignUpEducation(text0,'educational_address')}/>
-          <DefaultInput label={STRINGS.ru.email} onChangeText={(text0)=>state.auth.setSignUpEducation(text0,'email')}/>
-          <DefaultInput label={STRINGS.ru.PhoneNumber} onChangeText={(text0)=>state.auth.setSignUpEducation(text0,'phone')}/>
-          <DefaultInput label={STRINGS.ru.password}  onChangeText={(text0)=>state.auth.setSignUpEducation(text0,'password')}/>
-          <DefaultInput label={STRINGS.ru.ContractID} onChangeText={(text0)=>state.auth.setSignUpEducation(text0,'country_id')}/>
-          <DefaultInput label={STRINGS.ru.region} onChangeText={(text0)=>state.auth.setSignUpEducation(text0,'educational_region')}/>
+          <DefaultInput label={STRINGS.ru.NameOftheTrainingCenter } onChangeText={(e)=>{
+            setStateEdu(e, 'educational_name')
+          }} />
+          <DefaultInput label={STRINGS.ru.lawAddres} onChangeText={(e)=> setStateEdu(e,'educational_address')}/>
+          <DefaultInput label={STRINGS.ru.email} onChangeText={(e) => setStateEdu(e, 'email')}/>
+          <DefaultInput label={STRINGS.ru.PhoneNumber} onChangeText={(e) => setStateEdu(e, 'phone')}/>
+          <DefaultInput label={STRINGS.ru.password}  onChangeText={(e) => setStateEdu(e, 'phone')}/>
+          <DefaultInput label={STRINGS.ru.ContractID} onChangeText={(e) => setStateEdu(e, 'country_id')}/>
+          <DefaultInput label={STRINGS.ru.region} onChangeText={(e) => setStateEdu(e, 'educational_region')}/>
           <DefaultButton
             title="Зарегестрироваться"
             ButtonStyle={{marginTop: 46, backgroundColor: '#F4B840'}}
@@ -135,10 +133,10 @@ const states = useRootState();
       ) : null}
       {props?.student ? (
         <ScrollView style={styles.input_box}>
-          <DefaultInput label={STRINGS.ru.email}  onChangeText={(text0)=>state.auth.setSignUpStudent(text0,'email')}/>
-          <DefaultInput label={STRINGS.ru.name}  onChangeText={(text0)=>state.auth.setSignUpStudent(text0,'name')} />
-          <DefaultInput label={STRINGS.ru.PhoneNumber}  onChangeText={(text0)=>state.auth.setSignUpStudent(text0,'phone')}/>
-          <DefaultInput label={STRINGS.ru.password}  onChangeText={(text0)=>state.auth.setSignUpStudent(text0,'password')}/>
+          <DefaultInput label={STRINGS.ru.email}  onChangeText={(e) => setStateStudent(e, 'email')}/>
+          <DefaultInput label={STRINGS.ru.name}  onChangeText={(e) => setStateStudent(e, 'name')} />
+          <DefaultInput label={STRINGS.ru.PhoneNumber}  onChangeText={(e) => setStateStudent(e, 'phone')}/>
+          <DefaultInput label={STRINGS.ru.password}  onChangeText={(e) => setStateStudent(e, 'password')}/>
     
           <DefaultButton
             title="Зарегестрироваться"
@@ -151,26 +149,26 @@ const states = useRootState();
       ) : null}
       {props?.teacher ? (
         <ScrollView style={styles.input_box}>
-          <DefaultInput label={STRINGS.ru.name } onChangeText={(text0)=>state.auth.setSignUpTeacher(text0,'name')} />
+          <DefaultInput label={STRINGS.ru.name } onChangeText={(e) => setStateTeacher(e, 'name')} />
           <DefaultInput
             label={STRINGS.ru.lastName}
-            onChangeText={(text0)=>state.auth.setSignUpTeacher(text0,'lastname')}
+            onChangeText={(e) => setStateTeacher(e, 'lastname')}
           />
           <DefaultInput
             label={STRINGS.ru.Surname}
-            onChangeText={(text0)=>state.auth.setSignUpTeacher(text0,'fname')}
+            onChangeText={(e) => setStateTeacher(e, 'fname')}
           />
           <DefaultInput
             label={STRINGS.ru.PhoneNumber}
-            onChangeText={(text0)=>state.auth.setSignUpTeacher(text0,'phone')}
+            onChangeText={(e) => setStateTeacher(e, 'phone')}
           />
           <DefaultInput
             label={STRINGS.ru.email}
-            onChangeText={(text0)=>state.auth.setSignUpTeacher(text0,'email')}
+            onChangeText={(e) => setStateTeacher(e, 'email')}
           />
           <DefaultInput
             label={STRINGS.ru.password}
-            onChangeText={(text0)=>state.auth.setSignUpTeacher(text0,'password')}
+            onChangeText={(e) => setStateTeacher(e, 'password')}
           />
 
 
@@ -184,6 +182,10 @@ const states = useRootState();
         </ScrollView>
       ) : null}
     </View>
+  </ScrollView>
+</KeyboardAvoidingView>
+
+
   );
 };
 

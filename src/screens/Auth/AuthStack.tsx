@@ -10,6 +10,7 @@ import Student from './SelectType/Student/Student';
 import Teacher from './SelectType/Teacher/Teacher';
 import Screens from './onboardingScren';
 import RecoveryCode from './RecoveryScreen/RecoveryCode';
+import RecoveryEmail from './RecoveryScreen/RecoveryEmail';
 
 let Stack = createNativeStackNavigator();
 
@@ -28,6 +29,7 @@ export default function AuthStack() {
       <Stack.Screen name={ROUTES.STUDENT} component={Student} />
       <Stack.Screen name={ROUTES.TEACHER} component={Teacher} />
       <Stack.Screen name={ROUTES.RECOVERYCODE} component={RecoveryCode} />
+      <Stack.Screen name={ROUTES.RECOVERY_EMAIL} component={RecoveryEmail} />
     </Stack.Navigator>
   );
 }

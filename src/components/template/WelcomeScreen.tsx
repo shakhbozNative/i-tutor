@@ -5,9 +5,10 @@ import {
   StyleSheet,
   Image,
   ScrollView,
-} from "react-native";
-import React from "react";
-import { COLORS } from "../../constants/colors";
+  Dimensions,
+} from 'react-native';
+import React from 'react';
+import {COLORS} from '../../constants/colors';
 
 type Props = {
   title?: string;
@@ -18,12 +19,15 @@ type Props = {
   fontSize?: any;
 };
 
+const SCREEN_WIDTH = Dimensions.get('window').width;
+const SCREEN_HIGHT = Dimensions.get('window').height;
+
 export default function WelcomeScreen(props: Props) {
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
         <Image
-          source={require("../../assets/images/выпкопия.png")}
+          source={require('../../assets/images/выпкопия.png')}
           style={{
             width: props.imageWidth ? props.imageWidth : 280,
             height: props.height ? props.height : 280,
@@ -34,9 +38,8 @@ export default function WelcomeScreen(props: Props) {
         <Text
           style={[
             styles.title,
-            { fontSize: props.fontSize ? props.fontSize : 24 },
-          ]}
-        >
+            {fontSize: props.fontSize ? props.fontSize : 24},
+          ]}>
           {props.title}
         </Text>
         <Text style={styles.text}>{props.text}</Text>
@@ -49,34 +52,37 @@ export default function WelcomeScreen(props: Props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#47406A",
-    alignItems: "center",
-    justifyContent: "flex-start",
+    width: SCREEN_WIDTH,
+    height: SCREEN_HIGHT,
+    backgroundColor: '#47406A',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    borderWidth: 3,
   },
   imageContainer: {
-    width: "100%",
-    alignItems: "center",
-    justifyContent: "center",
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   box: {
-    width: "100%",
+    width: '100%',
     borderRadius: 18,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     paddingHorizontal: 20,
   },
   title: {
     fontSize: 24,
     lineHeight: 48,
-    fontWeight: "bold",
+    fontWeight: 'bold',
     color: COLORS.white,
-    textAlign: "center",
+    textAlign: 'center',
   },
   text: {
     fontSize: 16,
-    fontWeight: "bold",
+    fontWeight: 'bold',
     marginBottom: 28,
     color: COLORS.white,
-    textAlign: "center",
+    textAlign: 'center',
   },
 });
