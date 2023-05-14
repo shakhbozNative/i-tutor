@@ -16,43 +16,38 @@ import DefaultInputEye from '../../../components/uiket/DefaultInputEye';
 import DefaultInput from '../../../components/uiket/TextInput';
 import {COLORS} from '../../../constants/colors';
 import {ROUTES} from '../../../constants/routes';
-import useRootState from '../../../hooks/useRootState';
 import useRootStore from '../../../hooks/useRootStore';
 import {API_URL} from '../../../api/api.constants';
 import {observer} from 'mobx-react';
 import axios from 'axios';
+import tokens from '../../../api/tokens/tokens';
 
 const Login = () => {
-  const navigaton:any = useNavigation();
-  const state = useRootState();
-  const store = useRootStore();
-  
+  const navigaton: any = useNavigation();
+  const {setState, state} = useRootStore().loginStore;
+  const [a, b] = useState<[null, null]>();
+
   const handleLogin = async () => {
     try {
-       const res = await axios({
-      url:"http://tutor.shini.uz/api/user/sign-in",
-      method:"POST",
-      data:state.auth.state.login
-      })
-      
-        console.log('res', JSON.stringify(res.data));
-  
-      setTimeout(()=>{
-      if (res.data) {
-          
-            navigaton.navigate(ROUTES.VERIFICATION as never);
-          }
-        },200)
+      const res = await axios({
+        url: 'http://tutor.shini.uz/api/user/sign-in',
+        method: 'POST',
+        data: state,
+      });
+
+      console.log('res', JSON.stringify(res.data));
+      let {token} = await res.data.data;
+      await tokens.saveToken(token);
+
+      setTimeout(() => {
+        if (res.data) {
+          navigaton.navigate(ROUTES.STUDENTNAVIGATION as never);
+        }
+      }, 200);
     } catch (error) {
-     Alert.alert("Ogohlantirish", "Login yoki parol xato!")
+      Alert.alert('Ogohlantirish', 'Login yoki parol xato!');
     }
-    
-
-
-    
   };
-
- 
 
   return (
     <WelcomeScreen
@@ -65,19 +60,18 @@ const Login = () => {
         keyboardVerticalOffset={10}>
         <View>
           <DefaultInput
-          value={state.auth.state.login.phone}
-
+            value={state.phone}
             placeholder="Номер телефона"
-            onChangeText={e => state.auth.setLogin(e, 'phone')}
+            onChangeText={e => setState(e, 'phone')}
           />
           <DefaultInputEye
-          value={state.auth.state.login.password}
+            value={state.password}
             placeholder="Пароль"
             backgroundColor={'#69628D'}
             inputStyle={'#69628D'}
             color={COLORS.white}
             placeholderColor={COLORS.white}
-            onChange={e => state.auth.setLogin(e, 'password')}
+            onChange={e => setState(e, 'password')}
           />
           {/* <Text style={styles.error}>Не верный логин и/или пароль</Text> */}
         </View>
@@ -92,15 +86,13 @@ const Login = () => {
             onPress={handleLogin}
           />
           <TouchableOpacity
-            onPress={() => navigaton.navigate(ROUTES.SELECTTYPE , {phone: state.auth.state.login.phone })}>
+            onPress={() => navigaton.navigate(ROUTES.SELECTTYPE)}>
             <Text style={styles.text}>Нет аккаунта?</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
-            onPress={() => navigaton.navigate(ROUTES.RECOVERYCODE, {phone: state.auth.state.login.phone })}>
-            <Text style={styles.text}>
-              Вы забыли свой пароль?
-            </Text>
+            onPress={() => navigaton.navigate(ROUTES.RECOVERY_EMAIL)}>
+            <Text style={styles.text}>Вы забыли свой пароль?</Text>
           </TouchableOpacity>
 
           <View
@@ -108,9 +100,7 @@ const Login = () => {
               flexDirection: 'row',
               alignItems: 'center',
               justifyContent: 'center',
-            }}>
-
-          </View>
+            }}></View>
         </View>
       </KeyboardAvoidingView>
     </WelcomeScreen>

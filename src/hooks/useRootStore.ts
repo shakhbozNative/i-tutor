@@ -1,6 +1,6 @@
-import RootStore from '../services/all-store/RootStore';
 import {useContext} from 'react';
+import rootStore from '../store/rootStore';
 
-const useRootStore = () => useContext(RootStore);
+const useRootStore = () => useContext(rootStore);
 
 export default useRootStore;

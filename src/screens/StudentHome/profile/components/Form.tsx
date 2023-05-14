@@ -1,13 +1,15 @@
-import { StyleSheet, Text, View } from "react-native";
-import React from "react";
-import DefaultInput from "../../../../components/uiket/TextInput";
-import { STRINGS } from "../../../../locales/strings";
-import DefaultButton from "../../../../components/uiket/DefaultButton";
+import {Alert, StyleSheet, Text, View} from 'react-native';
+import React from 'react';
+import DefaultInput from '../../../../components/uiket/TextInput';
+import {STRINGS} from '../../../../locales/strings';
+import DefaultButton from '../../../../components/uiket/DefaultButton';
+import axios from 'axios';
+import useRootStore from '../../../../hooks/useRootStore';
 type propsType = {
   btnTitle?: string;
   onClick?: () => void;
 };
-const Form = (props: propsType) => {
+const Form = () => {
   return (
     <View style={styles.container}>
       <DefaultInput
