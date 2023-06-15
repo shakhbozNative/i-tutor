@@ -1,9 +1,9 @@
-import { View, Text, StyleSheet } from "react-native";
-import React from "react";
-import { COLORS } from "../../constants/colors";
+import {View, Text, StyleSheet} from 'react-native';
+import React from 'react';
+import {COLORS} from '../../constants/colors';
 
 type AllTitleType = {
-  title?: string;
+  title?: any;
   color?: string;
   marginTop?: number;
   marginBottom?: number;
@@ -14,16 +14,14 @@ export default function DefaulTitle(props: AllTitleType) {
     <View
       style={[
         styles.title_container,
-        { marginBottom: props.marginBottom, marginTop: props.marginTop },
-      ]}
-    >
+        {marginBottom: props.marginBottom, marginTop: props.marginTop},
+      ]}>
       {props ? (
         <Text
           style={[
             styles.title,
-            { color: props?.color ? props?.color : COLORS.white },
-          ]}
-        >
+            {color: props?.color ? props?.color : COLORS.white},
+          ]}>
           {props.title}
         </Text>
       ) : (
@@ -39,6 +37,6 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 28,
-    fontWeight: "700",
+    fontWeight: '700',
   },
 });

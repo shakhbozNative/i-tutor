@@ -4,14 +4,15 @@ import {
   TextInput,
   TouchableOpacity,
   View,
-} from "react-native";
-import React from "react";
-import DefaultInput from "../../../../components/uiket/TextInput";
-import { STRINGS } from "../../../../locales/strings";
-import DefaultButton from "../../../../components/uiket/DefaultButton";
-import Certificate from "./Certificate";
-import { BottomArrow, CloseIcon } from "../../../../assets/icons/icons";
-import SelectDropdown from "react-native-select-dropdown";
+} from 'react-native';
+import React from 'react';
+import DefaultInput from '../../../../components/uiket/TextInput';
+import {STRINGS} from '../../../../locales/strings';
+import DefaultButton from '../../../../components/uiket/DefaultButton';
+import Certificate from './Certificate';
+import {BottomArrow, CloseIcon} from '../../../../assets/icons/icons';
+import SelectDropdown from 'react-native-select-dropdown';
+import {useTranslation} from 'react-i18next';
 type propsType = {
   btnTitle?: string;
   onClick?: () => void;
@@ -20,47 +21,48 @@ type propsType = {
 const dataOrderType = [
   {
     id: 1,
-    name: "Самовывоз",
-    value: "pickup",
+    name: 'Самовывоз',
+    value: 'pickup',
   },
   {
     id: 2,
-    name: "Доставка курьером",
-    value: "delivery",
+    name: 'Доставка курьером',
+    value: 'delivery',
   },
 ];
 const EducationForm = (props: propsType) => {
+  const {t} = useTranslation();
   return (
     <View style={styles.container}>
       <DefaultInput
-        label={STRINGS.ru.ContractID}
+        label={t('ContractID')}
         lableColor="#47406A"
         backgroundColor="#EFEFEF"
       />
       <DefaultInput
-        label={"Наименование учебного центра"}
+        label={'Наименование учебного центра'}
         lableColor="#47406A"
         backgroundColor="#EFEFEF"
       />
 
       <DefaultInput
-        label={STRINGS.ru.PhoneNumber}
+        label={t('PhoneNumber')}
         lableColor="#47406A"
         backgroundColor="#EFEFEF"
       />
       <DefaultInput
-        label={STRINGS.ru.Mail}
+        label={t('Mail')}
         lableColor="#47406A"
         backgroundColor="#EFEFEF"
       />
       <DefaultInput
-        label={STRINGS.ru.password}
+        label={t('password')}
         lableColor="#47406A"
         backgroundColor="#EFEFEF"
       />
 
       <View style={styles.box_item}>
-        <Text style={{ padding: 0, margin: 0, color: "#000" }}>Страна</Text>
+        <Text style={{padding: 0, margin: 0, color: '#000'}}>Страна</Text>
         <SelectDropdown
           data={dataOrderType as any}
           buttonTextAfterSelection={(selectedItem: any, index: any) => {
@@ -71,23 +73,23 @@ const EducationForm = (props: propsType) => {
           }}
           buttonStyle={styles.dropdown2BtnStyle}
           buttonTextStyle={{
-            color: "#3F3535",
+            color: '#3F3535',
             fontSize: 16,
-            textAlign: "left",
+            textAlign: 'left',
           }}
           renderDropdownIcon={() => {
-            return <BottomArrow fill={"#000000"} />;
+            return <BottomArrow fill={'#000000'} />;
           }}
           dropdownIconPosition="right"
           rowTextStyle={{
-            color: "#3F3535",
+            color: '#3F3535',
             fontSize: 16,
           }}
           defaultButtonText=" "
         />
       </View>
       <View style={styles.box_item}>
-        <Text style={{ padding: 0, margin: 0, color: "#000" }}>Регион</Text>
+        <Text style={{padding: 0, margin: 0, color: '#000'}}>Регион</Text>
         <SelectDropdown
           data={dataOrderType as any}
           buttonTextAfterSelection={(selectedItem: any, index: any) => {
@@ -98,16 +100,16 @@ const EducationForm = (props: propsType) => {
           }}
           buttonStyle={styles.dropdown2BtnStyle}
           buttonTextStyle={{
-            color: "#3F3535",
+            color: '#3F3535',
             fontSize: 16,
-            textAlign: "left",
+            textAlign: 'left',
           }}
           renderDropdownIcon={() => {
-            return <BottomArrow fill={"#000000"} />;
+            return <BottomArrow fill={'#000000'} />;
           }}
           dropdownIconPosition="right"
           rowTextStyle={{
-            color: "#3F3535",
+            color: '#3F3535',
             fontSize: 16,
           }}
           defaultButtonText=" "
@@ -118,7 +120,7 @@ const EducationForm = (props: propsType) => {
         <TextInput multiline={true} style={styles.input} />
       </View>
       <View style={styles.box_item}>
-        <Text style={{ padding: 0, margin: 0, color: "#000" }}>Категория</Text>
+        <Text style={{padding: 0, margin: 0, color: '#000'}}>Категория</Text>
         <View style={styles.box_item2}>
           <SelectDropdown
             data={dataOrderType as any}
@@ -130,16 +132,16 @@ const EducationForm = (props: propsType) => {
             }}
             buttonStyle={styles.dropdown2BtnStyle2}
             buttonTextStyle={{
-              color: "#3F3535",
+              color: '#3F3535',
               fontSize: 16,
-              textAlign: "left",
+              textAlign: 'left',
             }}
             renderDropdownIcon={() => {
-              return <BottomArrow fill={"#000000"} />;
+              return <BottomArrow fill={'#000000'} />;
             }}
             dropdownIconPosition="right"
             rowTextStyle={{
-              color: "#3F3535",
+              color: '#3F3535',
               fontSize: 16,
             }}
             defaultButtonText=" "
@@ -152,20 +154,20 @@ const EducationForm = (props: propsType) => {
         </View>
       </View>
       <DefaultInput
-        label={"Стоимость в учебном центре"}
+        label={'Стоимость в учебном центре'}
         lableColor="#47406A"
         backgroundColor="#EFEFEF"
         typeOf="number-pad"
       />
       <DefaultInput
-        label={"Online через zoom"}
+        label={'Online через zoom'}
         lableColor="#47406A"
         backgroundColor="#EFEFEF"
         typeOf="number-pad"
       />
       {props.editing ? (
         <TouchableOpacity style={styles.box_item}>
-          <Text style={{ textAlign: "center", color: "#9A9A9A" }}>
+          <Text style={{textAlign: 'center', color: '#9A9A9A'}}>
             Добавить ещё
           </Text>
         </TouchableOpacity>
@@ -173,17 +175,17 @@ const EducationForm = (props: propsType) => {
 
       <View style={styles.box_item}>
         <Text style={styles.lable}>Сертификаты</Text>
-        <View style={{ width: "45%" }}>
+        <View style={{width: '45%'}}>
           <Certificate title="Загруженный" />
         </View>
       </View>
       <View style={styles.box_item}>
         <Text style={styles.lable}>Фотогалерея</Text>
-        <View style={{ flexDirection: "row" }}>
-          <View style={{ width: "45%", marginRight: 10 }}>
+        <View style={{flexDirection: 'row'}}>
+          <View style={{width: '45%', marginRight: 10}}>
             <Certificate title="Загруженный" />
           </View>
-          <View style={{ width: "45%" }}>
+          <View style={{width: '45%'}}>
             <Certificate title="Загруженный" />
           </View>
         </View>
@@ -204,11 +206,11 @@ const styles = StyleSheet.create({
     marginTop: 24,
   },
   box_item: {
-    width: "100%",
+    width: '100%',
     marginBottom: 20,
   },
   dropdown2BtnStyle: {
-    width: "100%",
+    width: '100%',
     height: 61,
     borderRadius: 5,
     paddingHorizontal: 24,
@@ -217,46 +219,46 @@ const styles = StyleSheet.create({
     marginTop: 15,
   },
   years: {
-    flexDirection: "row",
-    width: "100%",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    width: '100%',
+    justifyContent: 'space-between',
   },
   lable: {
     padding: 0,
     margin: 0,
-    color: "#47406A",
+    color: '#47406A',
     marginBottom: 18,
     fontSize: 16,
   },
   checkoutBox: {
-    flexDirection: "row",
-    alignItems: "center",
-    width: "100%",
+    flexDirection: 'row',
+    alignItems: 'center',
+    width: '100%',
   },
   checkout: {
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
     marginRight: 35,
   },
   checkoutItem: {
     width: 20,
     height: 20,
-    backgroundColor: "#EFEFEF",
+    backgroundColor: '#EFEFEF',
   },
   checkoutTitle: {
-    color: "#9A9A9A",
+    color: '#9A9A9A',
     marginLeft: 13,
   },
   input: {
-    backgroundColor: "#EFEFEF",
-    width: "100%",
+    backgroundColor: '#EFEFEF',
+    width: '100%',
     height: 152,
     paddingHorizontal: 10,
     paddingVertical: 20,
     borderRadius: 5,
   },
   dropdown2BtnStyle2: {
-    width: "85%",
+    width: '85%',
     height: 61,
     borderRadius: 5,
     paddingHorizontal: 24,
@@ -265,14 +267,14 @@ const styles = StyleSheet.create({
     marginTop: 15,
   },
   box_item2: {
-    width: "100%",
-    flexDirection: "row",
-    alignItems: "center",
+    width: '100%',
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   btnClose: {
-    backgroundColor: "#47406A",
-    justifyContent: "center",
-    alignItems: "center",
+    backgroundColor: '#47406A',
+    justifyContent: 'center',
+    alignItems: 'center',
     width: 51,
     height: 60,
     marginTop: 5,

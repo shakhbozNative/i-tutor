@@ -15,6 +15,8 @@ import PersonalCart from '../../../../components/uiket/PersonalCart';
 import ChatRecipient from '../../../../components/uiket/ChatRecipient';
 import {useNavigation} from '@react-navigation/native';
 import {ROUTES} from '../../../../constants/routes';
+import {STRINGS} from '../../../../locales/strings';
+import {useTranslation} from 'react-i18next';
 const data = [
   {id: 0, imgUrl: '../../../../assets/images/Vector.png', name: 'Языки'},
   {id: 1, imgUrl: '../../../../assets/images/Vector.png', name: 'Языки'},
@@ -28,11 +30,12 @@ const EducationChatGroup = (props: propsType) => {
   const OnPress = () => {
     navigation.navigate(ROUTES.EducationChooseChat as never);
   };
+  const {t} = useTranslation();
   return (
     <View style={{position: 'relative', backgroundColor: '#F8F8F8'}}>
       <NavbarAll />
       <View style={styles.container}>
-        <DefaulTitle title="Мои чаты" color="#47406A" />
+        <DefaulTitle title={t('My_chats')} color="#47406A" />
         <View>
           <FlatList
             horizontal
@@ -43,6 +46,8 @@ const EducationChatGroup = (props: propsType) => {
                 title={item.name}
                 editingIcon={false}
                 onClick={OnPress}
+                url={''}
+                selectImage={''}
               />
             )}
             style={styles.container2}

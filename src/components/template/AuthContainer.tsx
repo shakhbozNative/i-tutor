@@ -21,6 +21,7 @@ import GoBackHeader from '../uiket/GoBackHeader';
 import DefaultInput from '../uiket/TextInput';
 import useRootStore from '../../hooks/useRootStore';
 import {API_URL} from '../../api/api.constants';
+import {useTranslation} from 'react-i18next';
 type PropsType = {
   title?: string;
   text?: string;
@@ -34,128 +35,74 @@ type PropsType = {
 };
 
 const AuthContainer = (props: PropsType) => {
-  const navigation: any = useNavigation();
+  const navigation = useNavigation();
+  const {registerStore} = useRootStore();
   const {setStateEdu, setStateStudent, setStateTeacher, state} =
     useRootStore().signUpEduStore;
 
-  const handleLogin = async () => {
-    try {
-      const res = await axios({
-        url: '/user/sign-up-student',
-        method: 'POST',
-        data: state.student,
-      });
-
-      Alert.alert(
-        'Tabriklayman!',
-        `${state.student.name} siz muvaffaqqiyatli ro'yxatdan o'tdinggiz`,
-        [
-          {
-            text: 'Davom etish',
-            onPress: () => {
-              navigation.navigate(ROUTES.LOGIN);
-            },
-          },
-        ],
-      );
-    } catch (err: any) {
-      console.log(JSON.stringify(err.response.data, null, 2));
+  const handleRegisterEducation = async () => {
+    if (state.education.educational_name) {
+      await registerStore.onRegisterEducation(state.education);
     }
   };
 
-  const signUpTeacher = async () => {
-    try {
-      const res = await axios({
-        url: `${API_URL}/user/sign-up-tutor`,
-        method: 'POST',
-        data: state.teacher,
-      });
-
-      Alert.alert(
-        'Tabriklayman!',
-        `${state.teacher.name} siz mufaqiyatli ro'yxatdan o'tdinggiz`,
-        [
-          {
-            text: 'Davom etish',
-            onPress: () => {
-              navigation.navigate(ROUTES.LOGIN);
-            },
-          },
-        ],
-      );
-    } catch (err: any) {
-      console.log(JSON.stringify(err.response.data, null, 2));
+  const handleRegisterTeacher = async () => {
+    if (state.teacher.name) {
+      await registerStore.onRegisterTeacher(state.teacher);
     }
   };
 
-  const signUpEducation = async () => {
-    try {
-      const res = await axios({
-        url: `${API_URL}/user/sign-up-institution`,
-        method: 'POST',
-        data: state.education,
-      });
-
-      Alert.alert(
-        'Tabriklayman!',
-        `${state.education.educational_name} siz mufaqiyatli ro'yxatdan o'tdinggiz`,
-        [
-          {
-            text: 'Davom etish',
-            onPress: () => {
-              navigation.navigate(ROUTES.LOGIN);
-            },
-          },
-        ],
-      );
-    } catch (err: any) {
-      console.log(JSON.stringify(err.response.data, null, 2));
+  const handleRegisterStudent = async () => {
+    if (state.student.name) {
+      await registerStore.onRegisterStudent(state.student);
     }
   };
+
+  const {t} = useTranslation();
 
   return (
     <KeyboardAvoidingView style={{flex: 1}}>
       <ScrollView contentContainerStyle={{flex: 1}} bounces={false}>
         <View style={{backgroundColor: COLORS.tabBgColor, flex: 1}}>
           <GoBackHeader />
-          <DefaulTitle title={STRINGS.ru.registration} />
+          <DefaulTitle title={t('registration')} />
           {props?.education ? (
             <ScrollView style={styles.input_box}>
               <DefaultInput
-                label={STRINGS.ru.NameOftheTrainingCenter}
+                label={t('NameOftheTrainingCenter')}
                 onChangeText={e => {
                   setStateEdu(e, 'educational_name');
                 }}
               />
               <DefaultInput
-                label={STRINGS.ru.lawAddres}
+                label={t('lawAddres')}
                 onChangeText={e => setStateEdu(e, 'educational_address')}
               />
               <DefaultInput
-                label={STRINGS.ru.email}
+                label={t('email')}
                 onChangeText={e => setStateEdu(e, 'email')}
               />
               <DefaultInput
-                label={STRINGS.ru.PhoneNumber}
+                label={t('PhoneNumber')}
                 onChangeText={e => setStateEdu(e, 'phone')}
               />
               <DefaultInput
-                label={STRINGS.ru.password}
-                onChangeText={e => setStateEdu(e, 'phone')}
+                label={t('password')}
+                onChangeText={e => setStateEdu(e, 'password')}
               />
               <DefaultInput
-                label={STRINGS.ru.ContractID}
+                label={t('ContractID')}
                 onChangeText={e => setStateEdu(e, 'country_id')}
               />
               <DefaultInput
-                label={STRINGS.ru.region}
+                label={t('region')}
                 onChangeText={e => setStateEdu(e, 'educational_region')}
               />
               <DefaultButton
-                title="Зарегестрироваться"
+                title={t('registr')}
                 ButtonStyle={{marginTop: 46, backgroundColor: '#F4B840'}}
                 TextStyle={{color: COLORS.white}}
-                onPress={signUpEducation}
+                onPress={handleRegisterEducation}
               />
               <GapHeight height={68} />
             </ScrollView>
@@ -163,27 +110,27 @@ const AuthContainer = (props: PropsType) => {
           {props?.student ? (
             <ScrollView style={styles.input_box}>
               <DefaultInput
-                label={STRINGS.ru.email}
+                label={t('email')}
                 onChangeText={e => setStateStudent(e, 'email')}
               />
               <DefaultInput
-                label={STRINGS.ru.name}
+                label={t('name')}
                 onChangeText={e => setStateStudent(e, 'name')}
               />
               <DefaultInput
-                label={STRINGS.ru.PhoneNumber}
+                label={t('PhoneNumber')}
                 onChangeText={e => setStateStudent(e, 'phone')}
               />
               <DefaultInput
-                label={STRINGS.ru.password}
+                label={t('password')}
                 onChangeText={e => setStateStudent(e, 'password')}
               />
 
               <DefaultButton
-                title="Зарегестрироваться"
+                title={t('registr')}
                 ButtonStyle={{marginTop: 46, backgroundColor: '#F4B840'}}
                 TextStyle={{color: COLORS.white}}
-                onPress={handleLogin}
+                onPress={handleRegisterStudent}
               />
               <GapHeight height={68} />
             </ScrollView>
@@ -191,35 +138,35 @@ const AuthContainer = (props: PropsType) => {
           {props?.teacher ? (
             <ScrollView style={styles.input_box}>
               <DefaultInput
-                label={STRINGS.ru.name}
+                label={t('name')}
                 onChangeText={e => setStateTeacher(e, 'name')}
               />
               <DefaultInput
-                label={STRINGS.ru.lastName}
+                label={t('lastName')}
                 onChangeText={e => setStateTeacher(e, 'lastname')}
               />
               <DefaultInput
-                label={STRINGS.ru.Surname}
+                label={t('Surname')}
                 onChangeText={e => setStateTeacher(e, 'fname')}
               />
               <DefaultInput
-                label={STRINGS.ru.PhoneNumber}
+                label={t('PhoneNumber')}
                 onChangeText={e => setStateTeacher(e, 'phone')}
               />
               <DefaultInput
-                label={STRINGS.ru.email}
+                label={t('email')}
                 onChangeText={e => setStateTeacher(e, 'email')}
               />
               <DefaultInput
-                label={STRINGS.ru.password}
+                label={t('password')}
                 onChangeText={e => setStateTeacher(e, 'password')}
               />
 
               <DefaultButton
-                title="Зарегестрироваться"
+                title={t('registr')}
                 ButtonStyle={{marginTop: 46, backgroundColor: '#F4B840'}}
                 TextStyle={{color: COLORS.white}}
-                onPress={signUpTeacher}
+                onPress={handleRegisterTeacher}
               />
               <GapHeight height={68} />
             </ScrollView>

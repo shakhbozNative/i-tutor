@@ -7,6 +7,7 @@ import {ROUTES} from '../../../constants/routes';
 import useRootStore from '../../../hooks/useRootStore';
 import axios from 'axios';
 import {API_URL} from '../../../api/api.constants';
+import {useTranslation} from 'react-i18next';
 
 const RecoveryEmail = () => {
   const navigation = useNavigation();
@@ -34,11 +35,11 @@ const RecoveryEmail = () => {
       }
     }
   };
-
+  const {t} = useTranslation();
   return (
     <RecoveryComponent
-      title={STRINGS.ru.recovery}
-      label="Номер телефона"
+      title={t('recovery')}
+      label={t('PhoneNumber')}
       onChangeText={e => setState(e, 'phone')}
       onPress={onHandle}
     />

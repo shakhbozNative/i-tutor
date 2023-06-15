@@ -20,15 +20,19 @@ import useRootStore from '../../../hooks/useRootStore';
 import {API_URL} from '../../../api/api.constants';
 import {observer} from 'mobx-react';
 import axios from 'axios';
+import {STRINGS} from '../../../locales/strings';
+import {useTranslation} from 'react-i18next';
 
 const Login = () => {
   const navigaton: any = useNavigation();
-  const {setState, state, onLogin} = useRootStore().loginStore;
+  const {setState, state, onLogin, isError, isLoading} =
+    useRootStore().loginStore;
+  const {t} = useTranslation();
 
   return (
     <WelcomeScreen
-      title="Авторизация"
-      text={'Авторизуйтесь для получения доступа ко всем возможностям системы'}
+      title={t('authorization')}
+      text={t('authorization_new')}
       imageWidth={254}
       height={231}>
       <KeyboardAvoidingView
@@ -37,7 +41,7 @@ const Login = () => {
         <View>
           <DefaultInput
             value={state.phone}
-            placeholder="Номер телефона"
+            placeholder={t('PhoneNumber')}
             onChangeText={e => setState(e, 'phone')}
           />
           <DefaultInputEye
@@ -49,26 +53,29 @@ const Login = () => {
             placeholderColor={COLORS.white}
             onChange={e => setState(e, 'password')}
           />
-          {/* <Text style={styles.error}>Не верный логин и/или пароль</Text> */}
+          {isError ? (
+            <Text style={styles.error}>Не верный логин и/или пароль</Text>
+          ) : null}
         </View>
         <View>
           <DefaultButton
-            title={'Войти'}
+            title={t('enter')}
             ButtonStyle={{
               backgroundColor: '#F4B840',
               marginTop: 30,
             }}
             TextStyle={{color: COLORS.white}}
             onPress={onLogin}
+            loading={isLoading}
           />
           <TouchableOpacity
             onPress={() => navigaton.navigate(ROUTES.SELECTTYPE)}>
-            <Text style={styles.text}>Нет аккаунта?</Text>
+            <Text style={styles.text}> {t('no_account')} </Text>
           </TouchableOpacity>
 
           <TouchableOpacity
             onPress={() => navigaton.navigate(ROUTES.RECOVERY_EMAIL)}>
-            <Text style={styles.text}>Вы забыли свой пароль?</Text>
+            <Text style={styles.text}> {t('forget_password')} </Text>
           </TouchableOpacity>
 
           <View

@@ -1,38 +1,29 @@
-import React from "react";
+import React from 'react';
 
-import { useNavigation } from "@react-navigation/native";
-import WelcomeScreen from "../../../components/template/WelcomeScreen";
+import {useNavigation} from '@react-navigation/native';
+import WelcomeScreen from '../../../components/template/WelcomeScreen';
 
-import { ROUTES } from "../../../constants/routes";
-import FlagButton from "../../../components/uiket/FlagButton";
+import {ROUTES} from '../../../constants/routes';
+import FlagButton from '../../../components/uiket/FlagButton';
+import {STRINGS} from '../../../locales/strings';
+
+import {useTranslation} from 'react-i18next';
 
 export default function LanguageScreen(props: any) {
   const navigation = useNavigation();
 
+  const {t, i18n} = useTranslation();
+
+  const handle = (key: 'uz' | 'ru' | 'en') => {
+    i18n.changeLanguage(key);
+    navigation.navigate(ROUTES.LOGIN as never);
+  };
 
   return (
-    <WelcomeScreen title="Добро пожаловать" text={"Выберите язык"}>
-      <FlagButton
-        flagName="ru"
-        title="Русский"
-        onPress={() => {
-          navigation.navigate(ROUTES.LOGIN as never);
-        }}
-      />
-      <FlagButton
-        flagName="uz"
-        title="O'zbek"
-        onPress={() => {
-          navigation.navigate(ROUTES.LOGIN as never);
-        }}
-      />
-      <FlagButton
-        flagName="en"
-        title="English"
-        onPress={() => {
-          navigation.navigate(ROUTES.LOGIN as never);
-        }}
-      />
+    <WelcomeScreen title={t('welcome')} text={t('Choose_languag')}>
+      <FlagButton flagName="ru" title="Русский" onPress={() => handle('ru')} />
+      <FlagButton flagName="uz" title="O'zbek" onPress={() => handle('uz')} />
+      <FlagButton flagName="en" title="English" onPress={() => handle('en')} />
     </WelcomeScreen>
   );
 }

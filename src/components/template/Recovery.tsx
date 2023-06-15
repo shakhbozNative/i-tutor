@@ -8,6 +8,7 @@ import GoBackHeader from '../uiket/GoBackHeader';
 import DefaultInput from '../uiket/TextInput';
 import axios from 'axios';
 import {observer} from 'mobx-react';
+import {useTranslation} from 'react-i18next';
 
 type PropsType = {
   title: string;
@@ -17,7 +18,7 @@ type PropsType = {
   inputValue?: string;
 };
 const RecoveryComponent = (props: PropsType) => {
-  console.log(props.title);
+  const {t} = useTranslation();
 
   return (
     <View
@@ -32,7 +33,7 @@ const RecoveryComponent = (props: PropsType) => {
         <DefaultInput label={props.label} onChangeText={props.onChangeText} />
       </View>
       <View style={styles.btn_box}>
-        <DefaultButton title="Запросить код" onPress={props.onPress} />
+        <DefaultButton title={t('request_code')} onPress={props.onPress} />
       </View>
     </View>
   );

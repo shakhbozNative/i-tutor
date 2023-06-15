@@ -3,6 +3,7 @@ import 'react-native-gesture-handler';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import AppRouter from './src/routes/AppRouter';
 import React from 'react';
+import './src/locales/i18n';
 
 export default function App() {
   return (

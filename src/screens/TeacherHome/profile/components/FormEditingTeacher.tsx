@@ -1,12 +1,13 @@
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import React from "react";
-import DefaultInput from "../../../../components/uiket/TextInput";
-import { STRINGS } from "../../../../locales/strings";
-import DefaultButton from "../../../../components/uiket/DefaultButton";
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import React from 'react';
+import DefaultInput from '../../../../components/uiket/TextInput';
+import {STRINGS} from '../../../../locales/strings';
+import DefaultButton from '../../../../components/uiket/DefaultButton';
 
-import { BottomArrow, CloseIcon } from "../../../../assets/icons/icons";
-import SelectDropdown from "react-native-select-dropdown";
-import Certificate from "./Certificate";
+import {BottomArrow, CloseIcon} from '../../../../assets/icons/icons';
+import SelectDropdown from 'react-native-select-dropdown';
+import Certificate from './Certificate';
+import {useTranslation} from 'react-i18next';
 type propsType = {
   btnTitle?: string;
   onClick?: () => void;
@@ -14,79 +15,80 @@ type propsType = {
 const dataOrderType = [
   {
     id: 1,
-    name: "Самовывоз",
-    value: "pickup",
+    name: 'Самовывоз',
+    value: 'pickup',
   },
   {
     id: 2,
-    name: "Доставка курьером",
-    value: "delivery",
+    name: 'Доставка курьером',
+    value: 'delivery',
   },
 ];
 const data = [
   {
     id: 1,
-    name: "Узбекистан",
-    value: "pickup",
+    name: 'Узбекистан',
+    value: 'pickup',
   },
 ];
-const data2 = [{ id: 1, name: "Выберите", value: "" }];
+const data2 = [{id: 1, name: 'Выберите', value: ''}];
 const FormEditingTeacher = (props: propsType) => {
+  const {t} = useTranslation();
   return (
     <View style={styles.container}>
       <DefaultInput
-        label={STRINGS.ru.name}
+        label={t('name')}
         lableColor="#47406A"
         backgroundColor="#EFEFEF"
       />
       <DefaultInput
-        label={STRINGS.ru.lastName}
+        label={t('lastName')}
         lableColor="#47406A"
         backgroundColor="#EFEFEF"
       />
       <DefaultInput
-        label={STRINGS.ru.Surname}
+        label={t('Surname')}
         lableColor="#47406A"
         backgroundColor="#EFEFEF"
       />
       <DefaultInput
-        label={STRINGS.ru.PhoneNumber}
+        label={t('PhoneNumber')}
         lableColor="#47406A"
         backgroundColor="#EFEFEF"
       />
       <DefaultInput
-        label={STRINGS.ru.Mail}
+        label={t('Mail')}
         lableColor="#47406A"
         backgroundColor="#EFEFEF"
       />
       <DefaultInput
-        label={STRINGS.ru.acountry}
+        label={t('acountry')}
         lableColor="#47406A"
         backgroundColor="#EFEFEF"
       />
       <DefaultInput
-        label={STRINGS.ru.region}
+        label={t('region')}
         lableColor="#47406A"
         backgroundColor="#EFEFEF"
       />
       <DefaultInput
-        label={STRINGS.ru.password}
+        label={t('password')}
         lableColor="#47406A"
         backgroundColor="#EFEFEF"
       />
       <DefaultInput
-        label={STRINGS.ru.confirmPassword}
+        label={t('confirmPassword')}
         lableColor="#47406A"
         backgroundColor="#EFEFEF"
       />
       <DefaultInput
-        label={STRINGS.ru.confirmPassword}
+        label={t('confirmPassword')}
         lableColor="#47406A"
         backgroundColor="#EFEFEF"
       />
 
       <View style={styles.box_item}>
-        <Text style={{ padding: 0, margin: 0, color: "#000" }}>Страна</Text>
+        <Text style={{padding: 0, margin: 0, color: '#000'}}>Страна</Text>
         <SelectDropdown
           data={dataOrderType as any}
           buttonTextAfterSelection={(selectedItem: any, index: any) => {
@@ -97,23 +99,23 @@ const FormEditingTeacher = (props: propsType) => {
           }}
           buttonStyle={styles.dropdown2BtnStyle}
           buttonTextStyle={{
-            color: "#3F3535",
+            color: '#3F3535',
             fontSize: 16,
-            textAlign: "left",
+            textAlign: 'left',
           }}
           renderDropdownIcon={() => {
-            return <BottomArrow fill={"#000000"} />;
+            return <BottomArrow fill={'#000000'} />;
           }}
           dropdownIconPosition="right"
           rowTextStyle={{
-            color: "#3F3535",
+            color: '#3F3535',
             fontSize: 16,
           }}
           defaultButtonText=" "
         />
       </View>
       <View style={styles.box_item}>
-        <Text style={{ padding: 0, margin: 0, color: "#000" }}>Регион</Text>
+        <Text style={{padding: 0, margin: 0, color: '#000'}}>Регион</Text>
         <SelectDropdown
           data={dataOrderType as any}
           buttonTextAfterSelection={(selectedItem: any, index: any) => {
@@ -124,41 +126,41 @@ const FormEditingTeacher = (props: propsType) => {
           }}
           buttonStyle={styles.dropdown2BtnStyle}
           buttonTextStyle={{
-            color: "#3F3535",
+            color: '#3F3535',
             fontSize: 16,
-            textAlign: "left",
+            textAlign: 'left',
           }}
           renderDropdownIcon={() => {
-            return <BottomArrow fill={"#000000"} />;
+            return <BottomArrow fill={'#000000'} />;
           }}
           dropdownIconPosition="right"
           rowTextStyle={{
-            color: "#3F3535",
+            color: '#3F3535',
             fontSize: 16,
           }}
           defaultButtonText=" "
         />
       </View>
       <DefaultInput
-        label={STRINGS.ru.dateOfBirth}
+        label={t('dateOfBirth')}
         lableColor="#47406A"
         backgroundColor="#EFEFEF"
         typeOf="number-pad"
       />
       <DefaultInput
-        label={STRINGS.ru.floor}
+        label={t('floor')}
         lableColor="#47406A"
         backgroundColor="#EFEFEF"
         typeOf="number-pad"
       />
       <DefaultInput
-        label={"О преподавателе"}
+        label={'О преподавателе'}
         lableColor="#47406A"
         backgroundColor="#EFEFEF"
         typeOf="number-pad"
       />
       <View style={styles.box_item}>
-        <Text style={{ padding: 0, margin: 0, color: "#000" }}>Категория</Text>
+        <Text style={{padding: 0, margin: 0, color: '#000'}}>Категория</Text>
         <View style={styles.box_item2}>
           <SelectDropdown
             data={dataOrderType as any}
@@ -170,16 +172,16 @@ const FormEditingTeacher = (props: propsType) => {
             }}
             buttonStyle={styles.dropdown2BtnStyle2}
             buttonTextStyle={{
-              color: "#3F3535",
+              color: '#3F3535',
               fontSize: 16,
-              textAlign: "left",
+              textAlign: 'left',
             }}
             renderDropdownIcon={() => {
-              return <BottomArrow fill={"#000000"} />;
+              return <BottomArrow fill={'#000000'} />;
             }}
             dropdownIconPosition="right"
             rowTextStyle={{
-              color: "#3F3535",
+              color: '#3F3535',
               fontSize: 16,
             }}
             defaultButtonText=" "
@@ -190,42 +192,42 @@ const FormEditingTeacher = (props: propsType) => {
         </View>
       </View>
       <DefaultInput
-        label={"Стоимость у преподавателя"}
+        label={'Стоимость у преподавателя'}
         lableColor="#47406A"
         backgroundColor="#EFEFEF"
         typeOf="number-pad"
       />
       <DefaultInput
-        label={"У ученика дома"}
+        label={'У ученика дома'}
         lableColor="#47406A"
         backgroundColor="#EFEFEF"
         typeOf="number-pad"
       />
       <DefaultInput
-        label={"Online через zoom"}
+        label={'Online через zoom'}
         lableColor="#47406A"
         backgroundColor="#EFEFEF"
         typeOf="number-pad"
       />
 
       <DefaultInput
-        label={"Образование"}
+        label={'Образование'}
         lableColor="#47406A"
         backgroundColor="#EFEFEF"
         typeOf="number-pad"
       />
       <View style={styles.years}>
-        <View style={{ width: "48%" }}>
+        <View style={{width: '48%'}}>
           <DefaultInput
-            label={"Год поступления"}
+            label={'Год поступления'}
             lableColor="#47406A"
             backgroundColor="#EFEFEF"
             typeOf="number-pad"
           />
         </View>
-        <View style={{ width: "48%" }}>
+        <View style={{width: '48%'}}>
           <DefaultInput
-            label={"Год окончания"}
+            label={'Год окончания'}
             lableColor="#47406A"
             backgroundColor="#EFEFEF"
             typeOf="number-pad"
@@ -233,18 +235,18 @@ const FormEditingTeacher = (props: propsType) => {
         </View>
       </View>
       <TouchableOpacity style={styles.box_item}>
-        <Text style={{ textAlign: "center", color: "#9A9A9A" }}>
+        <Text style={{textAlign: 'center', color: '#9A9A9A'}}>
           Добавить ещё
         </Text>
       </TouchableOpacity>
       <DefaultInput
-        label={"Опыт работы"}
+        label={'Опыт работы'}
         lableColor="#47406A"
         backgroundColor="#EFEFEF"
         typeOf="number-pad"
       />
       <TouchableOpacity style={styles.box_item}>
-        <Text style={{ textAlign: "center", color: "#9A9A9A" }}>
+        <Text style={{textAlign: 'center', color: '#9A9A9A'}}>
           Добавить ещё
         </Text>
       </TouchableOpacity>
@@ -266,13 +268,13 @@ const FormEditingTeacher = (props: propsType) => {
         </View>
       </View>
       <DefaultInput
-        label={"Наименование учебного центра"}
+        label={'Наименование учебного центра'}
         lableColor="#47406A"
         backgroundColor="#EFEFEF"
         typeOf="number-pad"
       />
       <DefaultInput
-        label={"Ссылка на учебный центр"}
+        label={'Ссылка на учебный центр'}
         lableColor="#47406A"
         backgroundColor="#EFEFEF"
         typeOf="number-pad"
@@ -289,16 +291,16 @@ const styles = StyleSheet.create({
     marginTop: 24,
   },
   box_item: {
-    width: "100%",
+    width: '100%',
     marginBottom: 20,
   },
   box_item2: {
-    width: "100%",
-    flexDirection: "row",
-    alignItems: "center",
+    width: '100%',
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   dropdown2BtnStyle: {
-    width: "100%",
+    width: '100%',
     height: 61,
     borderRadius: 5,
     paddingHorizontal: 24,
@@ -307,7 +309,7 @@ const styles = StyleSheet.create({
     marginTop: 15,
   },
   dropdown2BtnStyle2: {
-    width: "85%",
+    width: '85%',
     height: 61,
     borderRadius: 5,
     paddingHorizontal: 24,
@@ -316,40 +318,40 @@ const styles = StyleSheet.create({
     marginTop: 15,
   },
   years: {
-    flexDirection: "row",
-    width: "100%",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    width: '100%',
+    justifyContent: 'space-between',
   },
   lable: {
     padding: 0,
     margin: 0,
-    color: "#47406A",
+    color: '#47406A',
     marginBottom: 18,
     fontSize: 16,
   },
   checkoutBox: {
-    flexDirection: "row",
-    alignItems: "center",
-    width: "100%",
+    flexDirection: 'row',
+    alignItems: 'center',
+    width: '100%',
   },
   checkout: {
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
     marginRight: 35,
   },
   checkoutItem: {
     width: 20,
     height: 20,
-    backgroundColor: "#EFEFEF",
+    backgroundColor: '#EFEFEF',
   },
   checkoutTitle: {
-    color: "#9A9A9A",
+    color: '#9A9A9A',
     marginLeft: 13,
   },
   btnClose: {
-    backgroundColor: "#47406A",
-    justifyContent: "center",
-    alignItems: "center",
+    backgroundColor: '#47406A',
+    justifyContent: 'center',
+    alignItems: 'center',
     width: 51,
     height: 60,
     marginTop: 5,

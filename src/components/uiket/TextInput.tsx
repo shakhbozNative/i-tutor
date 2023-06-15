@@ -4,14 +4,14 @@ import {
   Text,
   TextInput,
   View,
-} from "react-native";
-import React from "react";
-import { COLORS } from "../../constants/colors";
-import MaskInput, { Masks } from "react-native-mask-input";
+} from 'react-native';
+import React from 'react';
+import {COLORS} from '../../constants/colors';
+import MaskInput, {Masks} from 'react-native-mask-input';
 
 type Props = {
-  label?: string;
-  placeholder?: string;
+  label?: any;
+  placeholder?: any;
   backgroundColor?: string;
   color?: string;
   placeholderColor?: string;
@@ -27,34 +27,33 @@ type Props = {
 
 export default function DefaultInput(props: Props) {
   return (
-    <View style={[styles.inputBox, { marginBottom: props.marginBottom }]}>
+    <View style={[styles.inputBox, {marginBottom: props.marginBottom}]}>
       {props.label && (
         <Text
           style={[
             styles.inputLabel,
-            { color: props.lableColor ? props.lableColor : COLORS.white },
-          ]}
-        >
+            {color: props.lableColor ? props.lableColor : COLORS.white},
+          ]}>
           {props.label}
         </Text>
       )}
 
       {props.isDate ? (
         <MaskInput
-          mask={Masks.DATE_DDMMYYYY}
+          mask={Masks.DATE_YYYYMMDD}
           onChangeText={props.onChangeText}
-          value={props.value}
+          value={props.value || ''}
           onFocus={props.onFocus}
           placeholderTextColor={
-            props.placeholderColor ? props.placeholderColor : "#000"
+            props.placeholderColor ? props.placeholderColor : '#000'
           }
           style={[
             styles.input,
             {
               backgroundColor: props.backgroundColor
                 ? props.backgroundColor
-                : "",
-              color: props.color ? props.color : "#000",
+                : '',
+              color: props.color ? props.color : '#000',
             },
           ]}
         />
@@ -63,21 +62,21 @@ export default function DefaultInput(props: Props) {
           placeholder={props.placeholder}
           onFocus={props.onFocus}
           placeholderTextColor={
-            props.placeholderColor ? props.placeholderColor : "#000"
+            props.placeholderColor ? props.placeholderColor : '#000'
           }
           style={[
             styles.input,
             {
               backgroundColor: props.backgroundColor
                 ? props.backgroundColor
-                : "#69628D",
-              color: "#000",
+                : '#69628D',
+              color: '#000',
             },
           ]}
           onChangeText={props.onChangeText}
           value={props.value}
           defaultValue={props.defaultValue}
-          keyboardType={props.typeOf ?? "default"}
+          keyboardType={props.typeOf ?? 'default'}
         />
       )}
     </View>
@@ -85,15 +84,15 @@ export default function DefaultInput(props: Props) {
 }
 
 DefaultInput.defaultProps = {
-  backgroundColor: "#69628D",
-  color: "#fff",
-  placeholderColor: "#fff",
+  backgroundColor: '#69628D',
+  color: '#fff',
+  placeholderColor: '#fff',
   marginBottom: 15,
 };
 
 const styles = StyleSheet.create({
   input: {
-    width: "100%",
+    width: '100%',
     height: 61,
     borderRadius: 5,
     paddingHorizontal: 24,
@@ -101,7 +100,7 @@ const styles = StyleSheet.create({
     marginBottom: 9,
   },
   inputBox: {
-    width: "100%",
+    width: '100%',
     marginBottom: 20,
   },
   inputLabel: {

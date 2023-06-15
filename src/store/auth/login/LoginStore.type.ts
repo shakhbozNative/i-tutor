@@ -1,4 +1,6 @@
 export interface LoginResponseUser {
+  lastName: string;
+  fname: string;
   about: string;
   address_teach: any;
   birthday: any;

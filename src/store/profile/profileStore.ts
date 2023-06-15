@@ -1,13 +1,14 @@
-import axios from 'axios';
 import {API_URL} from '../../api/api.constants';
 import {makeAutoObservable} from 'mobx';
 import {RootStore} from '../rootStore';
+import {LoginResponseUser} from '../auth/login/LoginStore.type';
+import {Operation} from '../../helper/Operation';
+import $api from '../../api/api';
 
 export class ProfileStore {
-  isLoading: boolean = false;
-  root: RootStore;
-  _profile: any = null;
-
+  readonly root: RootStore;
+  _operation = new Operation<LoginResponseUser>({} as LoginResponseUser);
+  _profile: LoginResponseUser = {} as LoginResponseUser;
   constructor(props: RootStore) {
     makeAutoObservable(this);
 
@@ -15,25 +16,42 @@ export class ProfileStore {
   }
 
   getProfile = async () => {
-    this.setLoading(true);
-    try {
-      const headers = {
-        Authorization: `Bearer ${this.root.tokenStore.accessToken}`,
-      };
-      const profile = await axios.get(`${API_URL}/user/profile`, {headers});
-      console.log({profile});
-    } catch (error) {
-      console.log('error Profile GET', error);
+    await this._operation.run(() => {
+      return $api.get(`${API_URL}/user/profile`);
+    });
+
+    if (this._operation.isSuccess) {
+      const data = await this._operation.data;
+      this.setProfile(data);
     }
-    this.setLoading(false);
   };
 
-  setProfile = (data: any) => {
+  postProfileEditStudent = async () => {
+    const formData = new FormData();
+    console.log(this._profile);
+
+    for (var key in this._profile) {
+      formData.append(key, this._profile[key]);
+    }
+
+    await this._operation.run(() => {
+      return $api.post(`${API_URL}/user/update`, formData, {
+        headers: {'Content-Type': 'multipart/form-data'},
+      });
+    });
+
+    if (this._operation.isSuccess) {
+      const res = this._operation.data;
+      console.log('res', res);
+    }
+  };
+
+  setFormStudent = (key: keyof LoginResponseUser, value: string) => {
+    // @ts-ignore
+    this._profile[key] = value;
+  };
+
+  setProfile = (data: LoginResponseUser) => {
     this._profile = data;
-  };
-
-  // private regiion
-  private setLoading = (value: boolean) => {
-    this.isLoading = value;
   };
 }

@@ -11,9 +11,9 @@ import React from 'react';
 import {COLORS} from '../../constants/colors';
 
 type Props = {
-  title?: string;
+  title?: any;
   children?: React.ReactNode;
-  text?: string;
+  text?: any;
   imageWidth?: any;
   height?: any;
   fontSize?: any;

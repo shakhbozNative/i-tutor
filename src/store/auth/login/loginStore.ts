@@ -1,10 +1,11 @@
-import {makeAutoObservable} from 'mobx';
+import {makeAutoObservable, runInAction} from 'mobx';
 import {RootStore} from '../../rootStore';
 import {Operation} from '../../../helper/Operation';
 import {Alert} from 'react-native';
 import $api from '../../../api/api';
 import {API_URL} from '../../../api/api.constants';
 import {LoginResponseUser} from './LoginStore.type';
+import NavigationService from '../../../NavigationService';
 
 type stateDataType = {
   phone: string;
@@ -20,6 +21,8 @@ export class LoginStore {
   private readonly root: RootStore;
   form: stateDataType = initialState;
   _operation = new Operation<LoginResponseUser>({} as LoginResponseUser);
+  isError: boolean = false;
+  isLoading: boolean = false;
 
   constructor(root: RootStore) {
     makeAutoObservable(this);
@@ -27,7 +30,10 @@ export class LoginStore {
   }
 
   onLogin = async () => {
-    const {phone, password} = this.form;
+    runInAction(() => {
+      this.isLoading = true;
+    });
+    const {phone, password} = this.state;
     const data = {phone, password};
 
     await this._operation.run(() => {
@@ -38,18 +44,27 @@ export class LoginStore {
       const token = this._operation.data.token;
 
       await this.root.tokenStore._set(token);
-
-      Alert.alert('Success! You successfully login!', '', [
-        {
-          text: 'OK',
-        },
-      ]);
+      await NavigationService.navigate('HOME');
     }
+
+    if (this._operation.isError) {
+      runInAction(() => {
+        this.isError = true;
+      });
+    }
+    runInAction(() => {
+      this.isLoading = false;
+    });
+  };
+
+  onLogOut = async () => {
+    await this.root.tokenStore.clear();
   };
 
   state: stateDataType = initialState;
 
   setState = (value: string, key: keyof stateDataType) => {
+    this.isError = false;
     this.state[key] = value;
   };
 }

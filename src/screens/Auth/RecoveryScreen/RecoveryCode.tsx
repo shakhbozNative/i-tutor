@@ -8,6 +8,7 @@ import axios from 'axios';
 import {ROUTES} from '../../../constants/routes';
 import {Alert} from 'react-native';
 import {API_URL} from '../../../api/api.constants';
+import {useTranslation} from 'react-i18next';
 
 const RecoveryCode = () => {
   const navigation = useNavigation();
@@ -42,10 +43,10 @@ const RecoveryCode = () => {
       }
     }
   };
-
+  const {t} = useTranslation();
   return (
     <RecoveryComponent
-      title={STRINGS.ru.recovery}
+      title={t('recovery')}
       label="Введите код"
       onChangeText={e => setState(e, 'code')}
       onPress={onHandle}

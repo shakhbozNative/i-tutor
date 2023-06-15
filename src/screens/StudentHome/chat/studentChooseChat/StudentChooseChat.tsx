@@ -13,6 +13,7 @@ import {STRINGS} from '../../../../locales/strings';
 import {COLORS} from '../../../../constants/colors';
 import NavbarAll from '../../../../components/uiket/NavbarAll';
 import DefaulTitle from '../../../../components/uiket/DefaultTitle';
+import {useTranslation} from 'react-i18next';
 const data = [
   {id: 0, imgUrl: '../../../../assets/images/Vector.png', name: 'Языки'},
   {id: 1, imgUrl: '../../../../assets/images/Vector.png', name: 'Языки'},
@@ -22,6 +23,7 @@ const data = [
 ];
 
 const StudentChooseChat = () => {
+  const {t} = useTranslation();
   return (
     <View style={styles.container}>
       <NavbarAll />
@@ -39,7 +41,7 @@ const StudentChooseChat = () => {
         <View style={styles.send_cart_item}>
           <SaveIconMessage fill={'#C8C8C8'} />
           <TextInput
-            placeholder={STRINGS.ru.yourMessage}
+            placeholder={t('yourMessage')}
             style={styles.input}
             placeholderTextColor={'#C8C8C8'}
           />

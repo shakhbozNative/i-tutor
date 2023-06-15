@@ -1,22 +1,22 @@
-import { Text, TouchableOpacity, Image, StyleSheet, View } from "react-native";
-import React from "react";
-import { COLORS } from "../../constants/colors";
+import {Text, TouchableOpacity, Image, StyleSheet, View} from 'react-native';
+import React from 'react';
+import {COLORS} from '../../constants/colors';
 
 type Props = {
   onPress?: () => void;
-  title?: string;
+  title?: any;
   flagName?: string;
   iconUrl?: any;
 };
 
 export default function FlagButton(props: Props) {
   let imgRequire;
-  if (props.flagName === "ru") {
-    imgRequire = require("../../assets/images/ru.png");
-  } else if (props.flagName === "en") {
-    imgRequire = require("../../assets/images/en.png");
-  } else if (props.flagName === "uz") {
-    imgRequire = require("../../assets/images/uz.png");
+  if (props.flagName === 'ru') {
+    imgRequire = require('../../assets/images/ru.png');
+  } else if (props.flagName === 'en') {
+    imgRequire = require('../../assets/images/en.png');
+  } else if (props.flagName === 'uz') {
+    imgRequire = require('../../assets/images/uz.png');
   }
 
   return (
@@ -34,12 +34,12 @@ export default function FlagButton(props: Props) {
 
 const styles = StyleSheet.create({
   button: {
-    width: "100%",
+    width: '100%',
     height: 61,
-    backgroundColor: "#69628D",
+    backgroundColor: '#69628D',
     borderRadius: 5,
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
     paddingHorizontal: 26,
     marginBottom: 7,
   },
@@ -51,8 +51,8 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 17,
     lineHeight: 48,
-    fontWeight: "400",
-    fontStyle: "normal",
+    fontWeight: '400',
+    fontStyle: 'normal',
     color: COLORS.white,
   },
 });

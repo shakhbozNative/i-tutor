@@ -5,26 +5,25 @@ import {
   TextInput,
   TouchableOpacity,
   View,
-} from "react-native";
-import GoBackHeader from "../../../../components/uiket/GoBackHeader";
-import ChatItemMe from "../components/ChatItemMe";
-import {
-  RightArrowIcon,
-  SaveIconMessage,
-} from "../../../../assets/icons/icons";
-import { STRINGS } from "../../../../locales/strings";
-import { COLORS } from "../../../../constants/colors";
-import NavbarAll from "../../../../components/uiket/NavbarAll";
-import DefaulTitle from "../../../../components/uiket/DefaultTitle";
+} from 'react-native';
+import GoBackHeader from '../../../../components/uiket/GoBackHeader';
+import ChatItemMe from '../components/ChatItemMe';
+import {RightArrowIcon, SaveIconMessage} from '../../../../assets/icons/icons';
+import {STRINGS} from '../../../../locales/strings';
+import {COLORS} from '../../../../constants/colors';
+import NavbarAll from '../../../../components/uiket/NavbarAll';
+import DefaulTitle from '../../../../components/uiket/DefaultTitle';
+import {useTranslation} from 'react-i18next';
 const data = [
-  { id: 0, imgUrl: "../../../../assets/images/Vector.png", name: "Языки" },
-  { id: 1, imgUrl: "../../../../assets/images/Vector.png", name: "Языки" },
-  { id: 2, imgUrl: "../../../../assets/images/Vector.png", name: "Языки" },
-  { id: 3, imgUrl: "../../../../assets/images/Vector.png", name: "Языки" },
-  { id: 4, imgUrl: "../../../../assets/images/Vector.png", name: "Языки" },
+  {id: 0, imgUrl: '../../../../assets/images/Vector.png', name: 'Языки'},
+  {id: 1, imgUrl: '../../../../assets/images/Vector.png', name: 'Языки'},
+  {id: 2, imgUrl: '../../../../assets/images/Vector.png', name: 'Языки'},
+  {id: 3, imgUrl: '../../../../assets/images/Vector.png', name: 'Языки'},
+  {id: 4, imgUrl: '../../../../assets/images/Vector.png', name: 'Языки'},
 ];
 
 const EducationChooseChat = () => {
+  const {t} = useTranslation();
   return (
     <View style={styles.container}>
       <NavbarAll />
@@ -32,7 +31,7 @@ const EducationChooseChat = () => {
       <FlatList
         showsVerticalScrollIndicator={false}
         data={data}
-        renderItem={({ item }) => <ChatItemMe />}
+        renderItem={({item}) => <ChatItemMe />}
         style={styles.container2}
         contentContainerStyle={styles.contentContainerStyle}
         keyExtractor={(item: any) => item.id}
@@ -40,14 +39,14 @@ const EducationChooseChat = () => {
 
       <View style={styles.send_cart}>
         <View style={styles.send_cart_item}>
-          <SaveIconMessage fill={"#C8C8C8"} />
+          <SaveIconMessage fill={'#C8C8C8'} />
           <TextInput
-            placeholder={STRINGS.ru.yourMessage}
+            placeholder={t('yourMessage')}
             style={styles.input}
-            placeholderTextColor={"#C8C8C8"}
+            placeholderTextColor={'#C8C8C8'}
           />
           <TouchableOpacity>
-            <RightArrowIcon style={styles.tgicon} fill={"#C8C8C8"} />
+            <RightArrowIcon style={styles.tgicon} fill={'#C8C8C8'} />
           </TouchableOpacity>
         </View>
       </View>
@@ -64,28 +63,28 @@ const styles = StyleSheet.create({
     paddingBottom: 80,
   },
   data_title: {
-    textAlign: "center",
+    textAlign: 'center',
   },
   chat: {
     marginHorizontal: 15,
-    position: "relative",
+    position: 'relative',
   },
   send_cart: {
-    position: "absolute",
+    position: 'absolute',
     height: 64,
     backgroundColor: COLORS.white,
-    width: "100%",
+    width: '100%',
     bottom: 40,
     paddingHorizontal: 20,
   },
   send_cart_item: {
-    width: "100%",
-    height: "100%",
+    width: '100%',
+    height: '100%',
     borderRadius: 5,
     borderColor: COLORS.white,
-    alignItems: "center",
-    flexDirection: "row",
-    backgroundColor: "#F8F8F8",
+    alignItems: 'center',
+    flexDirection: 'row',
+    backgroundColor: '#F8F8F8',
     elevation: 5,
     shadowOpacity: 0.1,
     shadowRadius: 5,
@@ -97,14 +96,14 @@ const styles = StyleSheet.create({
   },
 
   input: {
-    width: "80%",
+    width: '80%',
     marginLeft: 5,
     color: COLORS.defaultBlack,
   },
 
   tgicon: {
     marginLeft: 10,
-    alignSelf: "center",
+    alignSelf: 'center',
   },
 
   myMsg: {
@@ -118,12 +117,12 @@ const styles = StyleSheet.create({
 
   myBox: {
     marginTop: 20,
-    alignItems: "flex-end",
+    alignItems: 'flex-end',
     marginRight: 10,
   },
   container2: {
     marginTop: 20,
     marginBottom: 30,
   },
-  contentContainerStyle: { paddingHorizontal: 20 },
+  contentContainerStyle: {paddingHorizontal: 20},
 });

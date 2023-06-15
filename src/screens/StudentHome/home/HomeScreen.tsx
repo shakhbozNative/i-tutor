@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {ScrollView, StyleSheet, View} from 'react-native';
 import {SearchIcon, SearchSettingsIcon} from '../../../assets/icons/icons';
 import DefaulTitle from '../../../components/uiket/DefaultTitle';
@@ -8,29 +8,36 @@ import SearchInput from '../../../components/uiket/search/SearchInput';
 import GapHeight from '../../../constants/GapHeight';
 import useVisible from '../../../hooks/useVisible';
 import ServiceNew from './ServiceNews/ServiceNew';
-import Categories from './categories/Categories';
 import Advertising from './components/Advertising';
 import OurExperts from './ourExperts/OurExpert';
 import UserReview from './userReviews/UserReview';
 
 import {observer} from 'mobx-react';
+import useRootStore from '../../../hooks/useRootStore';
+import {Categories} from './categories/Categories';
+import {STRINGS} from '../../../locales/strings';
+import {useTranslation} from 'react-i18next';
 const HomeScreen = observer(() => {
+  const {profileStore, homeStore} = useRootStore();
   const leftModalOpen = useVisible();
+  useEffect(() => {
+    profileStore.getProfile();
+    homeStore.getCategory();
+    homeStore.getNews();
+  }, []);
+  const {t} = useTranslation();
   return (
     <View style={{position: 'relative', backgroundColor: '#F8F8F8'}}>
       <NavbarAll clickMe={leftModalOpen.show} />
       <ScrollView style={styles.container}>
-        <DefaulTitle
-          title="Поиск преподавателей и учебных центров"
-          color="#47406A"
-        />
+        <DefaulTitle title={t('Search_for_teachers')} color="#47406A" />
         <View style={styles.search_box}>
           <SearchInput Icon1={<SearchSettingsIcon />} Icon2={<SearchIcon />} />
         </View>
-        <Categories title={'Категории'} />
-        <OurExperts title="Наши эксперты" />
-        <UserReview title="Отзывы пользователей" />
-        <ServiceNew title="Новости сервиса" />
+        <Categories data={homeStore._category} title={t('categories')} />
+        <OurExperts title={t('Our_experts')} />
+        <UserReview title={t('User_Reviews')} />
+        <ServiceNew data={homeStore._news} title="Новости сервиса" />
         <Advertising />
 
         <GapHeight height={100} />

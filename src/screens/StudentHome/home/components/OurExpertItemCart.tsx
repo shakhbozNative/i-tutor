@@ -1,7 +1,7 @@
-import { Image, StyleSheet, Text, View } from "react-native";
-import React, { useState } from "react";
-import { StrokeIcon, UserTwoIcon } from "../../../../assets/icons/icons";
-import { COLORS } from "../../../../constants/colors";
+import {Image, StyleSheet, Text, View} from 'react-native';
+import React, {useState} from 'react';
+import {StrokeIcon, UserTwoIcon} from '../../../../assets/icons/icons';
+import {COLORS} from '../../../../constants/colors';
 
 const OurExpertItemCart = () => {
   return (
@@ -10,13 +10,13 @@ const OurExpertItemCart = () => {
         <View style={styles.image_bg}>
           <Image
             style={styles.image}
-            source={require("../../../../assets/images/image_bg.png")}
+            source={require('../../../../assets/images/image_bg.png')}
           />
         </View>
         <View style={styles.image_old}>
           <Image
             style={styles.image_person}
-            source={require("../../../../assets/images/Ellipse2.png")}
+            source={require('../../../../assets/images/Ellipse2.png')}
           />
         </View>
       </View>
@@ -28,13 +28,13 @@ const OurExpertItemCart = () => {
         <View style={styles.personStroke}>
           <View style={styles.follower}>
             <UserTwoIcon />
-            <Text style={{ color: COLORS.black, marginLeft: 7 }}>189</Text>
+            <Text style={{color: COLORS.black, marginLeft: 7}}>189</Text>
           </View>
           <View style={styles.follower}>
-            <View style={{ height: "100%", marginRight: 7 }}>
+            <View style={{height: '100%', marginRight: 7}}>
               <StrokeIcon />
             </View>
-            <Text style={{ color: COLORS.black }}>5.5</Text>
+            <Text style={{color: COLORS.black}}>5.5</Text>
           </View>
         </View>
       </View>
@@ -51,73 +51,73 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.white,
     marginRight: 10,
     borderRadius: 10,
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "space-between",
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
   img_box: {
     height: 121,
-    width: "100%",
+    width: '100%',
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
-    position: "relative",
-    justifyContent: "center",
-    alignItems: "center",
+    position: 'relative',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 
   image_bg: {
-    width: "100%",
-    height: "100%",
+    width: '100%',
+    height: '100%',
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
     zIndex: 1,
   },
   image: {
-    width: "100%",
-    height: "100%",
+    width: '100%',
+    height: '100%',
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
   },
   image_old: {
-    position: "absolute",
     width: 94,
     height: 94,
     borderRadius: 50,
+    position: 'absolute',
     zIndex: 10,
   },
   image_person: {
-    width: "100%",
-    height: "100%",
+    width: '100%',
+    height: '100%',
     borderRadius: 50,
   },
   info_box: {
-    width: "100%",
+    width: '100%',
     padding: 10,
     height: 110,
   },
   personName_contex: {
-    width: "100%",
-    flexDirection: "column",
-    alignItems: "center",
+    width: '100%',
+    flexDirection: 'column',
+    alignItems: 'center',
   },
   personName: {
     fontSize: 12,
-    color: "#9A9A9A",
+    color: '#9A9A9A',
   },
   person_work: {
-    color: "#47406A",
+    color: '#47406A',
     fontSize: 17,
   },
   personStroke: {
-    width: "100%",
+    width: '100%',
     marginTop: 20,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     height: 30,
   },
   follower: {
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
   },
 });
